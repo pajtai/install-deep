@@ -10,10 +10,12 @@ module.exports = installDeep;
 
 function installDeep(options) {
 
+    options = options || {};
+
     return BB.try(() => {
         var ignore = ['**/node_modules/**'];
 
-        if (options && options.ignore) {
+        if (options.ignore) {
             ignore = ignore.concat(options.ignore);
         }
 
