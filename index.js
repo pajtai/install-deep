@@ -9,15 +9,18 @@ const runner = require('node-shell-runner');
 module.exports = installDeep;
 
 function installDeep(options) {
-    var ignore = ['**/node_modules/**'];
 
-    if (options.ignore) {
-        ignore = ignore.concat(options.ignore);
-    }
+    return BB.try(() => {
+        var ignore = ['**/node_modules/**'];
 
-    console.log('will be ignoring:', chalk.green(ignore));
+        if (options && options.ignore) {
+            ignore = ignore.concat(options.ignore);
+        }
 
-    return glob("*/**/package.json", { ignore : ignore })
+        console.log('will be ignoring:', chalk.green(ignore));
+
+        return glob("*/**/package.json", { ignore : ignore })
+    })
         .then(files => {
             console.log('\n\nwill be npm installing:', chalk.green(JSON.stringify(files, null, 4)));
             return files;
