@@ -1,9 +1,9 @@
 # install-deep
 
-Recursively npm install all package.json. outside node_modules. Will not run
-npm install on the root pacakge.json.
+Recursively npm install all package.json outside node_modules. Will not run
+npm install on the root package.json.
 
-This is useful of you structure your app as smaller modules, following 
+This is useful if you structure your app as smaller modularized bits of code, following 
 something similar to [this](https://strongloop.com/strongblog/modular-node-js-express/).
 That post has a script in it, but it assumes you only go one level deep.
 
@@ -25,5 +25,5 @@ installDeep()
 
 ## Options
 
-`ignore` : concatenate this array onto the existing `[ '**/node_modules/**' ]` ignore.
-`dryRun` : will not run cds or npm installs
+* `ignore` : concatenate this array onto the existing `[ '**/node_modules/**' ]` ignore.
+* `dryRun` : will not run cds or npm installs
