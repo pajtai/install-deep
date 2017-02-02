@@ -23,4 +23,21 @@ describe('Recursive install', () => {
             })
             .catch(done);
     });
+
+    it('in fixtures using custom installer', (done) => {
+
+        const filePath = path.resolve(__dirname, '..', 'fixtures');
+
+        installDeep({ cwd : filePath, dryRun : true, installer: 'pnpm' })
+            .then((commands) => {
+                commands.should.deep.equal([
+                    [ "cd fixtures/a/b; pnpm install",   "\n\nRunning pnpm install for fixtures/a/b/package.json" ],
+                    [ "cd fixtures/c; pnpm install",     "\n\nRunning pnpm install for fixtures/c/package.json" ],
+                    [ "cd fixtures; pnpm install",       "\n\nRunning pnpm install for fixtures/package.json" ]
+
+                ]);
+                done();
+            })
+            .catch(done);
+    });
 });

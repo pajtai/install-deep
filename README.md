@@ -25,5 +25,6 @@ installDeep()
 
 ## Options
 
-* `ignore` : concatenate this array onto the existing `[ '**/node_modules/**' ]` ignore.
-* `dryRun` : will not run cds or npm installs
+* `installer` : app to be used for installation. Possible values: `npm` (default), `pnpm`, `ied`, `yarn`.
+* `ignore`    : concatenate this array onto the existing `[ '**/node_modules/**' ]` ignore.
+* `dryRun`    : will not run cds or npm installs
