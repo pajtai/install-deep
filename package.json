@@ -1,6 +1,6 @@
 {
   "name": "install-deep",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Recursively npm install all package.jsons outside node_modules.",
   "main": "index.js",
   "scripts": {
