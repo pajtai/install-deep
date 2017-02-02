@@ -11,6 +11,9 @@ module.exports = installDeep;
 function installDeep(options) {
 
     options = options || {};
+    var installer = options.installer || 'npm';
+
+    var installationCmd = getInstallationCommand(installer);
 
     return BB.try(() => {
         var ignore = ['**/node_modules/**'];
@@ -24,12 +27,12 @@ function installDeep(options) {
         return glob("*/**/package.json", { ignore : ignore })
     })
         .then(files => {
-            console.log('\n\nwill be npm installing:', chalk.green(JSON.stringify(files, null, 4)));
+            console.log(`\n\nwill be ${installer} installing:`, chalk.green(JSON.stringify(files, null, 4)));
             return files;
         })
         .then(files => {
             return files.map(file => {
-                return [`cd ${path.dirname(file)}; npm install`, `\n\nRunning npm install for ${file}` ];
+                return [`cd ${path.dirname(file)}; ${installationCmd}`, `\n\nRunning ${installer} install for ${file}` ];
             });
         })
         .then(commands => {
@@ -43,3 +46,15 @@ function installDeep(options) {
         });
 }
 
+function getInstallationCommand(installer) {
+    switch (installer) {
+        case 'npm':
+        case 'pnpm':
+        case 'ied':
+            return `${installer} install`;
+        case 'yarn':
+            return installer;
+        default:
+            throw new Error('Unknown installer used');
+    }
+}
